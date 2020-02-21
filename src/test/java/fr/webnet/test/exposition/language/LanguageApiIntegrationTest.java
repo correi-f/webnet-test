@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class LanguageApiIntegrationTest {
 
     @Autowired
@@ -31,16 +31,18 @@ public class LanguageApiIntegrationTest {
 
     @Test
     public void should_return_welcome_to_the_jungle_when_call_hello() throws Exception {
-        LanguageDTO javaLanguage = new LanguageDTO("Java", "The master language !");
-        LanguageDTO dotnetLanguage = new LanguageDTO(".NET", "The master language !");
-        LanguageDTO javascriptLanguage = new LanguageDTO("Javascript", "The master language !");
-        LanguageDTO phpLanguage = new LanguageDTO("Php", "The master language !");
-        List<LanguageDTO> expectedList = Arrays.asList(javaLanguage, dotnetLanguage, javaLanguage, phpLanguage);
+        LanguageDTO javaLanguage = new LanguageDTO("Java", "Java is a general-purpose programming language that is class-based, object-oriented, and designed to have as few implementation dependencies as possible.");
+        LanguageDTO dotnetLanguage = new LanguageDTO(".NET", ".NET Framework is a software framework developed by Microsoft that runs primarily on Microsoft Windows.");
+        LanguageDTO javascriptLanguage = new LanguageDTO("Javascript", "JavaScript, often abbreviated as JS, is an interpreted programming language that conforms to the ECMAScript specification.");
+        LanguageDTO phpLanguage = new LanguageDTO("Php", "PHP is a popular general-purpose scripting language that is especially suited to web development.");
+        List<LanguageDTO> expectedList = Arrays.asList(javaLanguage, dotnetLanguage, javascriptLanguage, phpLanguage);
         MvcResult result = this.mockMvc.perform(get("/languages"))
                 .andExpect(status().is2xxSuccessful())
                 .andReturn();
         List<LanguageDTO> languages = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<List<LanguageDTO>>(){});
         assertThat(languages).isNotNull();
-        assertThat(languages).containsAll(expectedList);
+        assertThat(languages).containsAnyElementsOf(expectedList);
     }
+
+
 }

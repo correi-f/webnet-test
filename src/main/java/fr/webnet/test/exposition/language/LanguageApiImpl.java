@@ -4,7 +4,6 @@ import fr.webnet.test.application.RetrieveLanguage;
 import fr.webnet.test.domain.language.Language;
 import fr.webnet.test.exposition.language.dto.LanguageDTO;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -20,7 +19,6 @@ public class LanguageApiImpl implements LanguageApi {
     }
 
     @Override
-    @GetMapping("/languages")
     public ResponseEntity<List<LanguageDTO>> languages() {
         return ResponseEntity.ok(retrieveLanguage.of().stream()
                 .map(this::adaptToResponse).collect(Collectors.toList()));

@@ -10,14 +10,30 @@ import java.util.Objects;
 public class LanguageDTO implements Serializable {
 
     @JsonProperty("language")
-    public String value;
-    public String description;
+    private String value;
+    private String description;
 
     public LanguageDTO() {
     }
 
     public LanguageDTO(String value, String description) {
         this.value = value;
+        this.description = description;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
         this.description = description;
     }
 
