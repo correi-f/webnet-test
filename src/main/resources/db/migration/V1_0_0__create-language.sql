@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS language (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    description VARCHAR(200) NOT NULL,
+    PRIMARY KEY (id)
+)
